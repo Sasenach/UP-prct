@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  body {
+    background: #2B2B2B;
+    font-family: 'Segoe UI Semibold',serif;
+  }
+  .center-items{
+    text-align: center;
+    vertical-align: middle;
+  }
+  .formStyle{
+    margin: 35px auto;
+    border-radius: 5px;
+    padding: 4px 12px;
+    width: 750px;
+    background: #3C3F41;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .formItem{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #87939A;
+  }
+  .btn{
+    background-color: #538642;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    text-decoration: none;
+    color: #DCDFE1;
+    font-weight: 500;
+  }
+  .search{
+    width: 650px;
+    font-size: 24px;
+    font-weight: 500;
+    background-color: #45494A;
+    color: #87939A;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 35px;
+    border-width: 0px;
+  }
+  .btnSearch{
+    font-size: 24px;
+    font-weight: 500;
+    background-color: #538642;
+    border-radius: 5px;
+    padding: 9px;
+    color: #DCDFE1;
+    border-width: 0px;
+  }
+</style>
+
+
+<body>
+<div style="margin-top: 100px" class="center-items">
+  <a class="btn" href="/employee/add" >Добавить</a>
+</div>
+<div class="center-items">
+  <form action="employee/filter" method="get">
+    <input class="search" type="text" placeholder="Введите имя сотрудника" name="searchName">
+    <input class="btnSearch" type="submit" value="Найти" >
+  </form>
+</div>
+<div>
+  <div>
+    <div>
+      <div class="formStyle" th:each="el : ${listPeople}">
+        <p class="formItem" th:text="'Номер: '+${el.id}"></p>
+        <p class="formItem" th:text="${el.name}+' '+${el.post}"></p>
+<!--        <a class="formItem" th:href="'employee/details/'+${el.id}">Подробнее</a>-->
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
