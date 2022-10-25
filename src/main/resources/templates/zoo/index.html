@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
+    <div th:insert="fragment/header :: header2"></div>
 </head>
 <style>
     body {
@@ -74,7 +79,7 @@
 <div class="formStyle" th:each="el : ${listAnimal}">
     <p class="formItem" th:text="'Номер: '+${el.getId()}"/>
     <p class="formItem" th:text="'Имя: '+${el.name}"/>
-<!--    <a class="formItem" th:href="'zoo/details/'+${el.id}">Подробнее</a>-->
+    <a class="formItem" th:href="'zoo/details/'+${el.id}">Подробнее</a>
 </div>
 
 </body>
