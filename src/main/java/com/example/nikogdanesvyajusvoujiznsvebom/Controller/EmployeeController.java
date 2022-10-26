@@ -4,8 +4,11 @@ import com.example.nikogdanesvyajusvoujiznsvebom.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -21,17 +24,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String employeeAddView(Model model){
+    public String employeeAddView(Employee employee){
         return "employee/add";
     }
 
     @PostMapping("/add")
-    public String employeeAdd(@RequestParam String name,
-                              @RequestParam Integer age,
-                              @RequestParam String post,
-                              @RequestParam String animal,
-                              @RequestParam String timetable, Model model){
-        Employee employee = new Employee(name, age, post, animal, timetable);
+    public String employeeAdd(@Valid Employee employee, BindingResult result){
+        if(result.hasErrors()) return "employee/add";
+
         employeeRepository.save(employee);
         return "redirect:/employee";
     }
@@ -57,24 +57,13 @@ public class EmployeeController {
                                @PathVariable long id) {
 
         Employee employee = employeeRepository.findById(id).orElseThrow();
-        model.addAttribute("editPeople", employee);
+        model.addAttribute("employee", employee);
         return("/employee/edit");
     }
 
     @PostMapping("/edit/{id}")
-    public String employeeEdit(@PathVariable long id,
-                               @RequestParam String name,
-                               @RequestParam Integer age,
-                               @RequestParam String post,
-                               @RequestParam String animal,
-                               @RequestParam String timetable) {
-
-        Employee employee = employeeRepository.findById(id).orElseThrow();
-        employee.setName(name);
-        employee.setAge(age);
-        employee.setPost(post);
-        employee.setAnimal(animal);
-        employee.setTimetable(timetable);
+    public String employeeEdit(@Valid Employee employee, BindingResult result) {
+        if(result.hasErrors()) return "/employee/edit";
 
         employeeRepository.save(employee);
 
