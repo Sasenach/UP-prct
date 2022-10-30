@@ -46,10 +46,10 @@
     <div class="formItem" th:each="el : ${people}">
         <p class="formStyle" th:text="'Номер: '+${el.getId()}"></p>
         <p class="formStyle" th:text="'Имя: '+${el.getName()}"></p>
-        <p class="formStyle" th:text="'Возраст: '+${el.age}"></p>
-        <p class="formStyle" th:text="'Описание: '+${el.post}"></p>
-        <p class="formStyle" th:text="'Закреплённое животное: '+${el.animal}"></p>
-        <p class="formStyle" th:text="'График работы: '+${el.timetable}"></p>
+        <p class="formItem" th:text="'Логин: '+${el.username}"></p>
+        <p class="formItem" th:text="'Пароль: '+${el.password}"></p>
+        <p class="formItem" th:text="'Роль: '+${el.roles}"></p>
+        <p class="formItem" th:text="'Статус: '+${el.active}"></p>
         <div class="center-items">
             <a class="btn" th:href="'/employee/edit/'+${el.getId()}">Изменить</a>
             <a class="btn" th:href="'/employee/delete/'+${el.getId()}">Удалить</a>

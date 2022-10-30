@@ -1,87 +1,91 @@
 package com.example.nikogdanesvyajusvoujiznsvebom.Model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 
 @Entity
 public class Zoo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
-    @NotBlank(message = "Поле не может быть пустым")
-    @Size(min = 1, max = 250, message = "Поле должно содержать от 1 до 250 символов")
-    public String description;
-    @NotBlank(message = "Поле не может быть пустым")
+    private Long id;
+    @NotBlank(message = "Заполните поле")
     @Size(min = 1, max = 30, message = "Поле должно содержать от 1 до 30 символов")
-    public String name;
+    private String name;
     @NotNull(message = "Заполните поле")
-    @Max(value = 2000, message ="Возраст не может быть больше 2000 лет")
-    public int age;
+    @Max(value = 250, message ="Возраст не может быть больше 250 лет" )
+    @Min(value = 0, message ="Младше 0 лет не может быть животное" )
+    private Integer age;
+    @NotBlank(message = "Заполните поле")
+    @Size (min = 1, max = 250, message = "Поле должно содержать от 1 до 250 символов")
+    private String description;
     @NotNull(message = "Заполните поле")
-    @Min(value = 1, message ="Рост животного не может быть меньше 1" )
-    public int height;
+    @Max(value = 10000, message ="Вес не может быть более 10 000 кг" )
+    @Min(value = 0, message ="Вес не может быть отрицательным" )
+    private Integer weight;
     @NotNull(message = "Заполните поле")
-    @Min(value = 1, message ="Вес животного не может быть меньше 1" )
-    public int weight;
+    @Max(value = 300, message ="Рост не может быть больше 300 м" )
+    @Min(value = 0, message ="Отрицательного значения не может быть" )
+    private Integer height;
 
-    public Zoo(String description, String name, int age, int height, int weight) {
-        this.id = id;
-        this.description = description;
+    public Zoo(String name, Integer age,
+               String description, Integer weight, Integer height){
         this.name = name;
         this.age = age;
-        this.height = height;
+        this.description = description;
         this.weight = weight;
+        this.height = height;
     }
 
-    public Zoo() {
+    public Zoo(){}
 
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public String getDescription() {
-        return description;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAge() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
         return age;
     }
 
-    public int getHeight() {
-        return height;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }

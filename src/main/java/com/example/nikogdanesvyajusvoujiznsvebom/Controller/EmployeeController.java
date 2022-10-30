@@ -1,5 +1,6 @@
 package com.example.nikogdanesvyajusvoujiznsvebom.Controller;
 import com.example.nikogdanesvyajusvoujiznsvebom.Model.Employee;
+import com.example.nikogdanesvyajusvoujiznsvebom.Model.Role;
 import com.example.nikogdanesvyajusvoujiznsvebom.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,19 +25,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String employeeAddView(Employee employee){
-        return "employee/add";
+    public String employeeAddView(Employee employee, Model model){
+        Iterable<Role> roles = List.of(Role.values());
+        model.addAttribute("roleName", roles);
+        return "/employee/add";
     }
 
     @PostMapping("/add")
     public String employeeAdd(@Valid Employee employee, BindingResult result){
         if(result.hasErrors()) return "employee/add";
 
+        employee.setActive(true);
+
         employeeRepository.save(employee);
         return "redirect:/employee";
     }
 
-    @GetMapping("/employee/filter")
+    @GetMapping("/filter")
     public String employeeFilter(@RequestParam String searchName,
                                  Model model){
         List<Employee> employee =employeeRepository.findByNameContaining(searchName);
@@ -58,6 +63,8 @@ public class EmployeeController {
 
         Employee employee = employeeRepository.findById(id).orElseThrow();
         model.addAttribute("employee", employee);
+        Iterable<Role> roles = List.of(Role.values());
+        model.addAttribute("roleName", roles);
         return("/employee/edit");
     }
 
@@ -65,6 +72,7 @@ public class EmployeeController {
     public String employeeEdit(@Valid Employee employee, BindingResult result) {
         if(result.hasErrors()) return "/employee/edit";
 
+        employee.setActive(true);
         employeeRepository.save(employee);
 
         return("redirect:/employee/details/" + employee.getId());
@@ -72,7 +80,9 @@ public class EmployeeController {
 
     @GetMapping("/delete/{id}")
     public String employeeDelete(@PathVariable long id) {
-        employeeRepository.deleteById(id);
+        Employee employee= employeeRepository.findById(id).orElseThrow();
+        employee.setActive(false);
+        employeeRepository.save(employee);
         return("redirect:/employee");
     }
 }

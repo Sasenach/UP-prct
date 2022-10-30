@@ -3,8 +3,15 @@
     <div class="container">
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/zoo" class="nav-link px-2 text-secondary">Животные</a></li>
-          <li><a href="/employee" class="nav-link px-2 text-white">Сотрудники</a></li>
+            <li><a href="/zoo" class="nav-link px-2 fs-5 text-secondary">Животные</a></li>
+            <li><a class="nav-link px-5 text-white fs-5 fw-bold" href="/employee">Сотрудники</a></li>
+            <li style="width: 60%"></li>
+            <li>
+                <form th:action="@{/logout}" method="post" >
+                    <input type="submit" value="Выйти" class="btn btn-outline-light me-2"/>
+                </form>
+            </li>
+
         </ul>
     </div>
   </header>
@@ -15,8 +22,14 @@
         <div class="container">
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/zoo" class="nav-link px-2 text-white">Животные</a></li>
-                <li><a href="/employee" class="nav-link px-2 text-secondary">Сотрудники</a></li>
+                <li><a href="/zoo" class="nav-link fs-5 px-2 text-white">Животные</a></li>
+                <li><a href="/employee" class="nav-link fs-5 px-5 text-secondary">Сотрудники</a></li>
+                <li style="width: 60%"></li>
+                <li>
+                    <form th:action="@{/logout}" method="post" >
+                        <input type="submit" value="Выйти" class="btn btn-outline-light me-2"/>
+                    </form>
+                </li>
             </ul>
         </div>
     </header>

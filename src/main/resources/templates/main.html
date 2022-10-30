@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +8,9 @@
           rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
           crossorigin="anonymous">
-    <div th:insert="fragment/header :: header2"></div>
+    <div th:insert="fragment/header :: header1"></div>
 </head>
+
 <style>
     body {
         background: #2B2B2B;
@@ -63,24 +65,19 @@
         color: #DCDFE1;
         border-width: 0px;
     }
+
+    h1{
+        font-size: 28px;
+        color: #DCDFE1;
+        text-decoration: none;
+        font-weight: 500;
+        text-align: center;
+        margin: 15px;
+        vertical-align: middle;
+    }
 </style>
 
 <body>
-<div class="center-items" style="margin-top: 100px">
-    <a class="btn" href="/zoo/add">Добавить</a>
-</div>
-<div class="center-items">
-    <form action="/zoo/filter" method="get">
-        <input class="search" type="text" placeholder="Введите имя животного" name="searchName">
-        <input class="btnSearch" type="submit" value="Найти" >
-    </form>
-</div>
-
-<div class="formStyle" th:each="el : ${listAnimal}">
-    <p class="formItem" th:text="'Номер: '+${el.getId()}"/>
-    <p class="formItem" th:text="'Имя: '+${el.name}"/>
-    <a class="formItem" th:href="'/zoo/details/'+${el.id}">Подробнее</a>
-</div>
-
+<h1>Main page</h1>
 </body>
 </html>

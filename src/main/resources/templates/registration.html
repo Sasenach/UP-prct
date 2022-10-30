@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    body {
+        background: #2B2B2B;
+        font-family: 'Segoe UI Semibold',serif;
+    }
+    .center-items{
+        text-align: center;
+        vertical-align: middle;
+    }
+    .formStyle{
+        margin: 35px auto;
+        border-radius: 5px;
+        padding: 4px 12px;
+        width: 750px;
+        background: #3C3F41;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .formItem{
+        font-size: 24px;
+        font-weight: 500;
+        background-color: #3C3F41;
+        border-radius: 5px;
+        padding: 12px;
+        color: #87939A;
+        border-color: #538642;
+        margin: 7px;
+        border-width: 1px;
+        width: 710px;
+    }
+    .btn{
+        background-color: #538642;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 24px;
+        text-decoration: none;
+        color: #DCDFE1;
+        font-weight: 500;
+    }
+
+    .errorView{
+        margin-left: 7px;
+        color: #C75450;
+    }
+    a{
+        color: #3E86A0;
+    }
+    a:hover{
+        color: #214283;
+        transition: .5ms;
+    }
+</style>
+
+<body>
+<div class="center-items">
+    <div class="errorView" th:if="${error}">
+        Такой пользователь уже существует.
+    </div>
+
+    <p class="errorView" th:text="${error}"></p>
+
+    <form class="formStyle" action="/registration" th:object="${employee}"  method="post">
+        <label>
+            <input name="name" type="text" th:field="*{name}" placeholder="Имя" class="formItem" autocomplete="off">
+            <div class="errorView" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+
+            <input type="text" name="username" th:field="*{username}" placeholder="Логин" class="formItem" autocomplete="off"/>
+            <div class="errorView" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div><br/>
+
+            <input type="password" name="password" th:field="*{password}" placeholder="Пароль" class="formItem" autocomplete="off"/>
+            <div class="errorView" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div><br/>
+
+            <input type="submit" value="Зарегистрироваться" class="btn btn-primary"/>
+        </label>
+    </form>
+    <a href="/login">Авторизироваться</a>
+</div>
+</body>
+</html>
