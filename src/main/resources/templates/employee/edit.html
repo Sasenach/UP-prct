@@ -53,24 +53,23 @@
 <body>
 <h1>Измененить данные о сотруднике</h1>
 <div class="formStyle">
-    <form method="post" th:object="${employee}" >
+    <form method="post" th:each="el:${employee}" >
         <label>
-            <input class="formItem" type="text" name="name" th:value="${name}" th:field="*{name}" placeholder="Имя"/> <br/>
-            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errorView"></div>
+            <input class="formItem" type="text" name="name" th:value="${employee.name}" th:field="*{employee.name}" placeholder="Имя"/> <br/>
+            <div th:if="${#fields.hasErrors('employee.name')}" th:errors="*{employee.name}" class="errorView"></div>
 
-            <input type="text" name="username" th:field="*{username}" placeholder="Логин" class="formItem"/>
-            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div><br/>
+            <input type="text" name="username" th:value="employee.username" th:field="*{employee.username}" placeholder="Логин" class="formItem"/>
+            <div th:if="${#fields.hasErrors('employee.username')}" th:errors="*{employee.username}"></div><br/>
 
-            <input type="text" name="password" th:field="*{password}" placeholder="Пароль" class="formItem"/>
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div><br/>
+            <input type="text" name="employee.password" th:field="*{employee.password}" placeholder="Пароль" class="formItem"/>
+            <div th:if="${#fields.hasErrors('employee.password')}" th:errors="*{employee.password}"></div><br/>
 
-            <select name="roles">
-                <div th:each="element : ${roleName}" class="">
-                    <option th:text="${element}"></option>
-                </div>
-            </select>
+            <div th:each="role : ${roleName}" class="">
+                <input class="form-check-input" type="checkbox" name="roles" th:value="${role}" th:checked="${#lists.contains(el.roles,role)}">
+                <label class="form-check-label" th:text="${role}"></label>
+            </div>
 
-            <input class="formItem" type="submit" value="Отправить данные"> <br/>
+            <input class="formItem" type="submit" value="Сохранить изменения"> <br/>
         </label>
   </form>
 </div>

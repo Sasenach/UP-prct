@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    body {
+        background: #2B2B2B;
+        font-family: 'Segoe UI Semibold',serif;
+    }
+    .center-items{
+        text-align: center;
+        vertical-align: middle;
+    }
+    h1{
+        font-size: 28px;
+        color: #DCDFE1;
+        text-decoration: none;
+        font-weight: 500;
+        text-align: center;
+        margin: 15px;
+        vertical-align: middle;
+    }
+    .formStyle{
+        margin: 35px auto;
+        border-radius: 5px;
+        padding: 4px 12px;
+        width: 750px;
+        background: #3C3F41;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .formItem{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        margin-left: 10px;
+        text-decoration: none;
+        color: #87939A;
+    }
+    .search{
+        width: 650px;
+        font-size: 24px;
+        font-weight: 500;
+        background-color: #45494A;
+        color: #87939A;
+        border-radius: 5px;
+        padding: 7px;
+        margin-top: 35px;
+        border-width: 0px;
+    }
+    .btn{
+        background-color: #538642;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 24px;
+        text-decoration: none;
+        color: #DCDFE1;
+        font-weight: 500;
+    }
+    .btnSearch{
+        font-size: 24px;
+        font-weight: 500;
+        background-color: #538642;
+        border-radius: 5px;
+        padding: 9px;
+        color: #DCDFE1;
+        border-width: 0px;
+    }
+    .errorView{
+        margin-left: 7px;
+        color: #C75450;
+    }
+    a{
+        margin:  7px;
+        color: #3E86A0;
+    }
+    a:hover{
+        color: #214283;
+        transition: .5ms;
+    }
+</style>
+
+<body>
+<div class="center-items">
+    <a class="btn" href="/employee/add">Добавить</a>
+</div>
+<div class="center-items">
+    <form class="formStyle" action="/ROLs/filter" method="get">
+        <input class="search" type="text" placeholder="Введите имя сотрудника" name="searchName">
+        <input class="btnSearch" type="submit" value="Найти" >
+    </form>
+</div>
+
+<div class="formStyle" th:each="el : ${listPeople}">
+    <p class="formItem" th:text="'Номер: '+${el.id}"></p>
+    <p class="formItem" th:text="'Логин: '+${el.username}"></p>
+    <div class="formItem" th:each="el1:${el.getRoles()}">
+        <p th:text="'Роль: '+${el1}"></p>
+    </div>
+    <a th:href="'/ROLs/edit/'+${el.id}">Редактировать</a>
+</div>
+</body>
+</html>

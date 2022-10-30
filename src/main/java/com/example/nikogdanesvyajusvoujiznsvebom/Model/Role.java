@@ -1,6 +1,11 @@
 package com.example.nikogdanesvyajusvoujiznsvebom.Model;
 
 
-public enum Role {
-    USER;
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
+    USER, ADMIN, ROLE_CH;
+
+    @Override
+    public String getAuthority() { return name(); }
 }

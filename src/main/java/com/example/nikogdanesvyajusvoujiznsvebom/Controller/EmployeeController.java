@@ -4,6 +4,8 @@ import com.example.nikogdanesvyajusvoujiznsvebom.Model.Role;
 import com.example.nikogdanesvyajusvoujiznsvebom.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
@@ -14,9 +16,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/employee")
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("")
     public String employeeMain(Model model){
         Iterable<Employee> listEmployee = employeeRepository.findAll();
@@ -36,7 +42,7 @@ public class EmployeeController {
         if(result.hasErrors()) return "employee/add";
 
         employee.setActive(true);
-
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         employeeRepository.save(employee);
         return "redirect:/employee";
     }
@@ -73,6 +79,7 @@ public class EmployeeController {
         if(result.hasErrors()) return "/employee/edit";
 
         employee.setActive(true);
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         employeeRepository.save(employee);
 
         return("redirect:/employee/details/" + employee.getId());
